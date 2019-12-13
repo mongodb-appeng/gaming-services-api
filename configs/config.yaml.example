@@ -1,0 +1,56 @@
+####################################################################
+###################### Backend settings ############################
+
+##### URI to MongoDB Atlas Deployment
+databaseURI: "mongodb+srv://USER:PASS@SOMETHING.mongodb.net/DATABASE?w=majority"
+
+####################################################################
+###################### Server settings #############################
+
+##### Listen on port
+port: 8888
+##### Listen on address (default: all), specifies the address/hostname the server listens. 
+# Currently, the server does _not_ support ipv6.
+address: ""
+
+##### Use SSL for agent/server communications
+# Validate client certificate using TLS Auth
+enableTLS: true
+
+# when enabled, will use HTTP authentication to validate client connections. HTTP authenticating only checks if the client's and server's root (chain) certificates have been issued by the same CA and thus only adds minimal security benefits.
+validateClientCert: true
+
+##### CA file for agent/server communications
+# provides path and filename to a root certificate chain for use by TLS encryption client/server/agent communications. It is necessary to provide this file when using self-signed certificates or certificates issued by a CA that is not recognised by the system.
+serverTLSCAFile: ca.pem
+
+##### PEM file for client certificate for agent/server communications
+# provides the path and filename of a PEMKey
+#  file used for TLS encryption between client, server and
+#  agent. Please note that this parameter implictly turns on TLS
+#  and if provided on the command line, the server will not
+#  support non-TLS encrypted communications. 
+serverTLSPEMFile: mongod_aes_pass_qwerty.pem
+
+##### Password for PEM file with encrypted private key
+# provides the password for pem file with an encrypted key.
+serverTLSPEMKeyPass: qwerty
+
+##### JWT Authentication validity time in seconds
+# sets the time in seconds that a JWT authentication token is valid for before a client or agent has to re-authenticate to get a new token. This setting only has an effect if the `-keyfile` parameter also is specified. Defaults to 3600s. A valid but expired token against an allowed verb on a resource will result in a 401/Unauthorized Status Code. The client can look for this error code to re-isse a call to /v2/auth and obtain a new, valid token.
+jwtExpirationSeconds: 3600
+
+##### Keyfile for agent/server authentication
+# specifies the name of a base64 encoded keyfile used for client/agent/server authentication. If a keyfile is specified on the command line, the server automatically turns on keyfile authentication for all clients and agents. When keyfile authentication is turned on, it is not possible to connect to the server without providing the shared keyfile. It is also necessary to use the /authenticate endpoint described below to obtain an authorization JSON Web Token before interacting with the server
+serverKeyfile: keyfile
+
+##### Redirect log output to a file
+# Specifies the name of a log file the server logs its output to instead of stdout
+logFile: server.out
+
+##### Control log level
+# FATAL == 0 |ERROR == 1|WARN == 2 | INFO == 3 | DEBUG == 4 | TRACE == 5
+logLevel: 4
+
+# allow usage of older API endpoints
+allowDeprecatedEndpoints: false
