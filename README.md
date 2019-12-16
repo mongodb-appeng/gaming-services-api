@@ -5,7 +5,7 @@ __NOTE__ This project structure follows the layout specified [here](https://gith
 ## TODO
 
 - OpenAPI spec
-- add hosting
+- add static hosting
 - add testing
 - dynamic CORS support
 - See other notes in trello board
@@ -15,10 +15,10 @@ __NOTE__ This project structure follows the layout specified [here](https://gith
 Note: Go must be installed and configured. See [docs](https://golang.org/doc/install)
 
 ```bash
-mkdir -p $GOPATH/src/github.com/desteves/
-cd $GOPATH/src/github.com/desteves/
-git clone https://github.com/desteves/babysteps.git
-cd babysteps
+mkdir -p $GOPATH/src/github.com/mongodb-appeng/
+cd $GOPATH/src/github.com/mongodb-appeng/
+git clone https://github.com/mongodb-appeng/gaming-services-api.git
+cd gaming-services-api
 ```
 
 ## Localhost Run
@@ -39,11 +39,11 @@ Note: Navigate to the root dir of this project
 ```bash
 docker build -t game-docker build/package/
 docker run --rm  -it \
-   -v  "$PWD":/go/src/github.com/desteves/babysteps \
+   -v  "$PWD":/go/src/github.com/mongodb-appeng/gaming-services-api \
    -p 8888:8888  \
    --hostname gps  \
    game-docker
 
 ## once inside the container
-cd /go/src/github.com/desteves/babysteps &&  go run cmd/gameplatformservices/main.go -c configs/config.yaml
+cd /go/src/github.com/mongodb-appeng/gaming-services-api &&  go run cmd/gameplatformservices/main.go -c configs/config.yaml
 ```

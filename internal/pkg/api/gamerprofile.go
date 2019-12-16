@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	database "github.com/desteves/babysteps/internal/pkg/database"
+	database "github.com/mongodb-appeng/gaming-services-api/internal/pkg/database"
 	"github.com/gorilla/mux"
 )
 
@@ -24,7 +24,7 @@ func ReadRandomGamerHandleHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := atlas.GetRandomGamerHandle("gamePlatformServices", "gamerhandles")
 	if err != nil {
-		log.Error("atlas - %+v\n", err.Error())
+		log.Error("atlas - \n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -45,7 +45,7 @@ func CreateGamerProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		log.Error("body - %+v", err.Error())
+		log.Error("body - ", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -54,13 +54,13 @@ func CreateGamerProfileHandler(w http.ResponseWriter, r *http.Request) {
 	var doc database.GamerProfileT
 	err = json.Unmarshal(body, &doc)
 	if err != nil {
-		log.Error("unmarshal - %+v", err.Error())
+		log.Error("unmarshal - ", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	result, err := atlas.CreateGamerProfile("gamePlatformServices", "gamerprofiles", &doc)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -89,7 +89,7 @@ func ReadGamerProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := atlas.FindGamerProfileByID(ID, "gamePlatformServices", "gamerprofiles")
 	if err != nil {
-		log.Error("atlas - %+v\n", err.Error())
+		log.Error("atlas - \n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -116,7 +116,7 @@ func ReadGamerProfileByAccountIDHandler(w http.ResponseWriter, r *http.Request) 
 	}
 	result, err := atlas.FindGamerProfileByAccountID(ID, "gamePlatformServices", "gamerprofiles")
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -165,7 +165,7 @@ func UpdateGamerProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := atlas.UpdateGamerProfileByID(ID, "gamePlatformServices", "gamerprofiles", temp)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -214,7 +214,7 @@ func UpdatePlayedGameHandler(w http.ResponseWriter, r *http.Request) {
 	doc.Title = ""
 	result, err := atlas.UpdatePlayedGame(ID, gameID, "gamePlatformServices", "gamerprofiles", &doc)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -242,7 +242,7 @@ func DeleteGamerProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := atlas.DeleteGamerProfile(ID, "gamePlatformServices", "gamerprofiles")
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

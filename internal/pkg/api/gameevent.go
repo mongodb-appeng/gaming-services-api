@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	database "github.com/desteves/babysteps/internal/pkg/database"
+	database "github.com/mongodb-appeng/gaming-services-api/internal/pkg/database"
 )
 
 // HTTP Handlers CRUD+ for Leaderboard.
@@ -24,7 +24,7 @@ func PostGameEventsHandler(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		log.Error("body - %+v", err.Error())
+		log.Error("body - ", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -40,7 +40,7 @@ func PostGameEventsHandler(w http.ResponseWriter, r *http.Request) {
 	doc.CreatedAt = time.Now()
 	result, err := atlas.AddGameEvents("gamePlatformServices", "gameevents", &doc)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

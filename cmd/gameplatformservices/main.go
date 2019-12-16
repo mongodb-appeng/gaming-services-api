@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	api "github.com/desteves/babysteps/internal/pkg/api"
+	api "github.com/mongodb-appeng/gaming-services-api/internal/pkg/api"
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
@@ -17,13 +17,6 @@ import (
 type ServerOptionsT struct {
 	Port    string `yaml:"port"`
 	Address string `yaml:"address"`
-	// EnableTLS                bool   `yaml:"enableTLS"`
-	// ValidateClientCert       bool   `yaml:"validateClientCert"`
-	// ServerTLSCAFile          string `yaml:"serverTLSCAFile"`
-	// ServerTLSPEMFile         string `yaml:"serverTLSPEMFile"`
-	// ServerTLSPEMKeyPass      string `yaml:"serverTLSPEMKeyPass"`
-	// JwtExpirationSeconds     int    `yaml:"jwtExpirationSeconds"`
-	// ServerKeyfile            string `yaml:"serverKeyfile"`
 	LogFile     string `yaml:"logFile"`  // no file == stdout, else output to provided file
 	LogLevel    int    `yaml:"logLevel"` // verbosity level control
 	DatabaseURI string `yaml:"databaseURI"`

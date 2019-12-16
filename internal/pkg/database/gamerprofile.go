@@ -77,15 +77,15 @@ func (a *AtlasClientService) CreateGamerProfile(argDb, argColl string, gamerprof
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
 
-	// log.Error("gamer profile to insert is %+v\n", *gamerprofile)
+	// log.Error("gamer profile to insert is \n", *gamerprofile)
 	result, err = a.client.Database(argDb).Collection(argColl).InsertOne(context.TODO(), *gamerprofile)
 	if err != nil {
-		log.Error("insert -  %+v\n", err)
+		log.Error("insert -  \n", err)
 		return
 	}
 	return
@@ -96,12 +96,12 @@ func (a *AtlasClientService) FindGamerProfileByID(id, argDb, argColl string) (re
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			// log.Fatal(err)
 			err = r.(error)
 		}
 	}()
-	// log.Error("looking for gamer profile with id %+v\n", id)
+	// log.Error("looking for gamer profile with id \n", id)
 	filter := bson.D{primitive.E{Key: "id", Value: id}}
 	err = a.client.Database(argDb).Collection(argColl).FindOne(context.TODO(), filter).Decode(&result)
 	return
@@ -112,7 +112,7 @@ func (a *AtlasClientService) GetRandomGamerHandle(argDb, argColl string) (result
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
@@ -132,7 +132,7 @@ func (a *AtlasClientService) FindGamerProfileByAccountID(id, argDb, argColl stri
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			// log.Fatal(err)
 			err = r.(error)
 		}
@@ -147,7 +147,7 @@ func (a *AtlasClientService) FindGamerProfileByAccountID(id, argDb, argColl stri
 func (a *AtlasClientService) UpdateGamerProfileByID(id, argDb, argColl string, gamerprofile map[string]interface{}) (result *mongo.UpdateResult, err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
@@ -166,7 +166,7 @@ func (a *AtlasClientService) UpdatePlayedGame(gamerID, gameID, argDb, argColl st
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
@@ -178,7 +178,7 @@ func (a *AtlasClientService) UpdatePlayedGame(gamerID, gameID, argDb, argColl st
 		primitive.E{Key: "games.$.draw", Value: playedgame.Draws}}}}
 	result, err = a.client.Database(argDb).Collection(argColl).UpdateOne(context.TODO(), filter, update)
 	if err != nil {
-		log.Error("update -  %+v\n", err)
+		log.Error("update -  \n", err)
 		return
 	}
 	return
@@ -189,7 +189,7 @@ func (a *AtlasClientService) DeleteGamerProfile(id, argDb, argColl string) (resu
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()

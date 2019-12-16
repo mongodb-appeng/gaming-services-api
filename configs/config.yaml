@@ -1,0 +1,23 @@
+####################################################################
+###################### Backend settings ############################
+
+##### URI to MongoDB Atlas Deployment
+databaseURI: "mongodb://root:MFdTutNZDMh8uyTH@gamedatabase-shard-00-00-cjj5h.mongodb.net:27017,gamedatabase-shard-00-01-cjj5h.mongodb.net:27017,gamedatabase-shard-00-02-cjj5h.mongodb.net:27017/test?ssl=true&replicaSet=gamedatabase-shard-0&authSource=admin&retryWrites=true&w=majority"
+# databaseURI: "mongodb+srv://root:MFdTutNZDMh8uyTH@gamedatabase-cjj5h.mongodb.net/DATABASE?w=majority"
+
+####################################################################
+###################### Server settings #############################
+
+##### Listen on port
+port: 8888
+##### Listen on address (default: all), specifies the address/hostname the server listens. 
+# Currently, the server does _not_ support ipv6.
+address: ""
+
+##### Redirect log output to a file
+# Specifies the name of a log file the server logs its output to instead of stdout
+logFile: game-platform-services.out
+
+##### Control log level
+# FATAL == 0 |ERROR == 1|WARN == 2 | INFO == 3 | DEBUG == 4 | TRACE == 5
+logLevel: 5

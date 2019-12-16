@@ -68,7 +68,7 @@ func (a *AtlasClientService) CreateLeaderboard(argDb, argColl string, leaderboar
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			// log.Fatal(err)
 			err = r.(error)
 		}
@@ -76,7 +76,7 @@ func (a *AtlasClientService) CreateLeaderboard(argDb, argColl string, leaderboar
 
 	result, err = a.client.Database(argDb).Collection(argColl).InsertOne(context.TODO(), *leaderboard)
 	if err != nil {
-		log.Error("insert -  %+v\n", err)
+		log.Error("insert -  \n", err)
 		// log.Fatal(err)
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (a *AtlasClientService) FindLeaderboardByID(id, argDb, argColl string) (res
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			// log.Fatal(err)
 			err = r.(error)
 		}
@@ -103,7 +103,7 @@ func (a *AtlasClientService) FindLeaderboardByID(id, argDb, argColl string) (res
 func (a *AtlasClientService) FindLeaderboardsByGameID(id, argDb, argColl string) (results []*LeaderboardT, err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
@@ -136,7 +136,7 @@ func (a *AtlasClientService) UpdateLeaderboardByID(id, argDb, argColl string, le
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
@@ -145,7 +145,7 @@ func (a *AtlasClientService) UpdateLeaderboardByID(id, argDb, argColl string, le
 	update := bson.D{primitive.E{Key: "$set", Value: *leaderboard}}
 	result, err = a.client.Database(argDb).Collection(argColl).UpdateOne(context.TODO(), filter, update)
 	if err != nil {
-		log.Error("insert -  %+v\n", err)
+		log.Error("insert -  \n", err)
 		return nil, err
 	}
 	return result, nil
@@ -156,7 +156,7 @@ func (a *AtlasClientService) DeleteLeaderboard(id, argDb, argColl string) (resul
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
@@ -170,12 +170,12 @@ func (a *AtlasClientService) DeleteLeaderboard(id, argDb, argColl string) (resul
 func (a *AtlasClientService) CountLeaderboard(filters map[string]string, argDb, argColl string) (result int64, err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
 
-	log.Error("got filters as %+v\n", filters)
+	log.Error("got filters as \n", filters)
 	if filters == nil || len(filters) == 0 {
 		result, err = a.client.Database(argDb).Collection(argColl).EstimatedDocumentCount(context.TODO())
 	} else {

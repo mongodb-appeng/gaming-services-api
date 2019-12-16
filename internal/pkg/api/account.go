@@ -3,12 +3,13 @@ package api
 import (
 	"encoding/json"
 
-	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 
-	database "github.com/desteves/babysteps/internal/pkg/database"
+	log "github.com/sirupsen/logrus"
+
 	"github.com/gorilla/mux"
+	database "github.com/mongodb-appeng/gaming-services-api/internal/pkg/database"
 )
 
 // HTTP Handlers CRUD+ for Account.
@@ -23,7 +24,7 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		log.Error("body - %+v", err.Error())
+		log.Error("body - ", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -32,14 +33,14 @@ func CreateAccountHandler(w http.ResponseWriter, r *http.Request) {
 	var doc database.AccountT
 	err = json.Unmarshal(body, &doc)
 	if err != nil {
-		log.Error("unmarshal - %+v", err.Error())
+		log.Error("unmarshal - ", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	result, err := atlas.CreateAccount("gamePlatformServices", "accounts", &doc)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -69,7 +70,7 @@ func ReadAccountHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := atlas.FindAccountByID(ID, "gamePlatformServices", "accounts")
 	if err != nil {
-		log.Error("atlas - %+v\n", err.Error())
+		log.Error("atlas - \n", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -111,7 +112,7 @@ func UpdateAccountHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := atlas.UpdateAccountByID(ID, "gamePlatformServices", "accounts", &doc)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -137,7 +138,7 @@ func NewStitchLoginHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	// log.Debug("NewStitchLoginHandler ID %+v \n ", ID)
+	// log.Debug("NewStitchLoginHandler ID  \n ", ID)
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -153,7 +154,7 @@ func NewStitchLoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Debug("NewStitchLoginHandler doc %+v \n ", doc)
+	log.Debug("NewStitchLoginHandler doc \n ", doc)
 	// delete(temp, "_id")
 	// var doc database.AccountT
 	// mapstructure.Decode(temp, &doc)
@@ -161,7 +162,7 @@ func NewStitchLoginHandler(w http.ResponseWriter, r *http.Request) {
 	result, err := atlas.NewStitchLogin(ID, "gamePlatformServices", "accounts", &doc)
 
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -189,7 +190,7 @@ func DeleteAccountHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := atlas.DeleteAccount(ID, "gamePlatformServices", "accounts")
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

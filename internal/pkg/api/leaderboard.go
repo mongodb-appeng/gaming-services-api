@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/desteves/babysteps/internal/pkg/database"
+	"github.com/mongodb-appeng/gaming-services-api/internal/pkg/database"
 	"github.com/gorilla/mux"
 )
 
@@ -22,7 +22,7 @@ func CreateLeaderboardHandler(w http.ResponseWriter, r *http.Request) {
 
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		log.Error("body - %+v", err.Error())
+		log.Error("body - ", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -35,7 +35,7 @@ func CreateLeaderboardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := atlas.CreateLeaderboard("gamePlatformServices", "leaderboards", &doc)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -68,7 +68,7 @@ func ReadLeaderboardsByGameIDHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := atlas.FindLeaderboardsByGameID(ID, "gamePlatformServices", "leaderboards")
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	} // success response
@@ -95,7 +95,7 @@ func ReadLeaderboardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := atlas.FindLeaderboardByID(ID, "gamePlatformServices", "leaderboards")
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	} // success response
@@ -115,7 +115,7 @@ func CountLeaderboardsHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := atlas.CountLeaderboard(mux.Vars(r), "gamePlatformServices", "leaderboards")
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -158,7 +158,7 @@ func UpdateLeaderboardHandler(w http.ResponseWriter, r *http.Request) {
 
 	result, err := atlas.UpdateLeaderboardByID(ID, "gamePlatformServices", "leaderboards", &doc)
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -175,7 +175,7 @@ func UpdateLeaderboardHandler(w http.ResponseWriter, r *http.Request) {
 //DeleteLeaderboardHandler is
 func DeleteLeaderboardHandler(w http.ResponseWriter, r *http.Request) {
 
-	log.Debug("DeleteLeaderboardHandler call %+v", r)
+	log.Debug("DeleteLeaderboardHandler call ", r)
 	defer func() {
 		if r != nil {
 			r.Body.Close()
@@ -190,7 +190,7 @@ func DeleteLeaderboardHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := atlas.DeleteLeaderboard(ID, "gamePlatformServices", "leaderboards")
 	if err != nil {
-		log.Error("atlas - %+v", err.Error())
+		log.Error("atlas - ", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

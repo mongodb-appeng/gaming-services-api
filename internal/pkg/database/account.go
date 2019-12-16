@@ -34,6 +34,7 @@ type AuthProfileT struct {
 
 //AuthProviderT is data provided by a 3rd party auth service
 type AuthProviderT struct {
+	// TODO - add _id for customer data support
 	ID                   string        `json:"id" bson:"id"`
 	LoggedInProviderType string        `json:"loggedInProviderType" bson:"loggedInProviderType"`
 	LoggedInProviderName string        `json:"loggedInProviderName" bson:"loggedInProviderName"`
@@ -73,7 +74,7 @@ func (a *AtlasClientService) CreateAccount(argDb string, argColl string, account
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			// log.Fatal(err)
 			err = r.(error)
 		}
@@ -81,7 +82,7 @@ func (a *AtlasClientService) CreateAccount(argDb string, argColl string, account
 
 	result, err = a.client.Database(argDb).Collection(argColl).InsertOne(context.TODO(), *account)
 	if err != nil {
-		log.Error("insert -  %+v\n", err)
+		log.Error("insert -  \n", err)
 		// log.Fatal(err)
 		return nil, err
 	}
@@ -93,7 +94,7 @@ func (a *AtlasClientService) FindAccountByID(id, argDb, argColl string) (result 
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			// log.Fatal(err)
 			err = r.(error)
 		}
@@ -109,18 +110,18 @@ func (a *AtlasClientService) UpdateAccountByID(id, argDb, argColl string, accoun
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
 
-	log.Debug("UpdateAccountByIDUpdateAccountByIDUpdateAccountByID  %+v\n", account)
+	log.Debug("UpdateAccountByIDUpdateAccountByIDUpdateAccountByID  \n", account)
 
 	filter := bson.D{primitive.E{Key: "id", Value: id}}
 	update := bson.D{primitive.E{Key: "$set", Value: *account}}
 	result, err = a.client.Database(argDb).Collection(argColl).UpdateOne(context.TODO(), filter, update)
 	if err != nil {
-		log.Error("insert -  %+v\n", err)
+		log.Error("insert -  \n", err)
 		return nil, err
 	}
 	return result, nil
@@ -131,7 +132,7 @@ func (a *AtlasClientService) NewStitchLogin(id, argDb, argColl string, auth *Aut
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
@@ -155,7 +156,7 @@ func (a *AtlasClientService) NewStitchLogin(id, argDb, argColl string, auth *Aut
 	// doc.Social = &social
 	doc.Meta = &meta
 
-	log.Debug("new stitch log attempting to insert  %+v\n", doc)
+	log.Debug("new stitch log attempting to insert  \n", doc)
 	inserted, err := a.CreateAccount(argDb, argColl, &doc)
 	//first time user
 	if err != nil {
@@ -165,7 +166,7 @@ func (a *AtlasClientService) NewStitchLogin(id, argDb, argColl string, auth *Aut
 		// opts := options.Update().SetUpsert(true)
 		result, err = a.client.Database(argDb).Collection(argColl).UpdateOne(context.TODO(), filter, update)
 
-		log.Debug("new stitch log in update result is %+v, %+v\n", result, err)
+		log.Debug("new stitch log in update result is , \n", result, err)
 
 	} else {
 		var gamer GamerProfileT
@@ -178,13 +179,13 @@ func (a *AtlasClientService) NewStitchLogin(id, argDb, argColl string, auth *Aut
 		image.Avatar = AvatarILoveMongo
 		image.Banner = BannerWarioWares
 
-		log.Debug("Now adding a gamer profile for the first time log in user...%+v \n", gamer)
+		log.Debug("Now adding a gamer profile for the first time log in user... \n", gamer)
 		gamer.Image = &image
 		creategamer, err := a.CreateGamerProfile("gamePlatformServices", "gamerprofiles", &gamer)
 		if err != nil {
-			log.Error("gamer err -  %+v\n", err)
+			log.Error("gamer err -  \n", err)
 		} else {
-			log.Debug("inserted gamer profile result is %+v\n", creategamer)
+			log.Debug("inserted gamer profile result is \n", creategamer)
 		}
 
 	}
@@ -197,7 +198,7 @@ func (a *AtlasClientService) NewStitchLogin(id, argDb, argColl string, auth *Aut
 // opts := options.Update().SetUpsert(true)
 // result, err = a.client.Database(argDb).Collection(argColl).UpdateOne(context.TODO(), filter, update, opts)
 // if err != nil {
-// 	log.Error("upsert -  %+v\n", err)
+// 	log.Error("upsert -  \n", err)
 // 	return
 // }
 // // auto generate a gamer profile to associate with the new account - game logic
@@ -205,10 +206,10 @@ func (a *AtlasClientService) NewStitchLogin(id, argDb, argColl string, auth *Aut
 // 	var gamer GamerProfileT
 // 	gamer.ID = result.UpsertedID.(primitive.ObjectID).Hex() // _id
 // 	gamer.Location = account.Location
-// 	// log.Debug("attempting to insert gamer profile for account  %+v with %+v", account.ID, gamer.ID)
+// 	// log.Debug("attempting to insert gamer profile for account   with ", account.ID, gamer.ID)
 // 	_, err = a.CreateGamerProfile("gamePlatformServices", "gamerprofiles", &gamer)
 // 	if err != nil {
-// 		log.Error("upsert -  %+v\n", err)
+// 		log.Error("upsert -  \n", err)
 // 		return
 // 	}
 // }
@@ -219,7 +220,7 @@ func (a *AtlasClientService) DeleteAccount(id, argDb, argColl string) (result *m
 
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()

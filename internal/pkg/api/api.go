@@ -3,7 +3,7 @@ package api
 import (
 	"net/http"
 	log "github.com/sirupsen/logrus"
-	"github.com/desteves/babysteps/internal/pkg/database"
+	"github.com/mongodb-appeng/gaming-services-api/internal/pkg/database"
 )
 
 

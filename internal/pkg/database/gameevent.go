@@ -29,16 +29,16 @@ type GameEventT struct {
 func (a *AtlasClientService) AddGameEvents(argDb, argColl string, gameevents *GameEventT) (result *mongo.InsertOneResult, err error) {
 	defer func() {
 		if r := recover(); r != nil {
-			log.Error("panic -  %+v\n", r)
+			log.Error("panic -  \n", r)
 			err = r.(error)
 		}
 	}()
 
-	log.Debug("InsertOne gameevents - %+v\n", gameevents)
+	log.Debug("InsertOne gameevents - \n", gameevents)
 	result, err = a.client.Database(argDb).Collection(argColl).InsertOne(context.TODO(), *gameevents)
 	// result, err = a.client.Database(argDb).Collection(argColl).InsertMany(context.TODO(), *gameevents)
 	if err != nil {
-		log.Error("insert -  %+v\n", err)
+		log.Error("insert -  \n", err)
 		return
 	}
 	return

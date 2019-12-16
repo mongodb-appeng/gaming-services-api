@@ -1,4 +1,4 @@
-module github.com/desteves/babysteps
+module github.com/mongodb-appeng/gaming-services-api
 
 go 1.13
 
